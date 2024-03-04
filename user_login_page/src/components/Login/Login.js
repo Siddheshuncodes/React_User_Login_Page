@@ -23,11 +23,20 @@ const Login = (props) => {
     };
 
     useEffect(() => {
-        console.log('check validity');
-        setFormIsValid(
-            enteredEmail.includes('@') && enteredCollege.trim().length > 0 && enteredPassword.trim().length > 6
-        )
+        const identifier = setTimeout(() => {
+            console.log('check form validity');
+            setFormIsValid(
+                enteredEmail.includes('@') && enteredCollege.trim().length > 0 && enteredPassword.trim().length > 6
+            );
+        }, 5000);
+
+        return () => {
+            console.log('cleanUp');
+            clearTimeout(identifier);
+        }
+
     }, [enteredEmail, enteredPassword, enteredCollege])
+
 
     const emailChangeHandler = (event) => {
         setEnteredEmail(event.target.value);
