@@ -11,6 +11,17 @@ const Login = (props) => {
     const [passwordIsValid, setPasswordIsValid] = useState();
     const [formIsValid, setFormIsValid] = useState(false);
 
+    const [enteredCollege, setEnteredCollege] = useState('');
+    const [collegeIsValid, setCollegeIsValid] = useState();
+
+    const collegeChangeHandler = (event) => {
+        setEnteredCollege(event.target.value);
+    }
+
+    const validateCollegeHandler = () => {
+        setCollegeIsValid(enteredCollege.trim().length > 0);
+    };
+
     const emailChangeHandler = (event) => {
         setEnteredEmail(event.target.value);
 
@@ -37,7 +48,7 @@ const Login = (props) => {
 
     const submitHandler = (event) => {
         event.preventDefault();
-        props.onLogin(enteredEmail, enteredPassword);
+        props.onLogin(enteredEmail, enteredPassword, enteredCollege);
     };
 
     return (
@@ -56,6 +67,21 @@ const Login = (props) => {
                         onBlur={validateEmailHandler}
                     />
                 </div>
+
+
+                <div className={`${classes.control} ${collegeIsValid === false ? classes.invalid : ''}`}>
+                    <label htmlFor="collegename"> College Name </label>
+                    <input
+                        type="text"
+                        id="collegename"
+                        value={enteredCollege}
+                        onChange={collegeChangeHandler}
+                        onBlur={validateCollegeHandler}
+                        required
+                    />
+                </div>
+
+
                 <div
                     className={`${classes.control} ${passwordIsValid === false ? classes.invalid : ''
                         }`}
@@ -69,6 +95,8 @@ const Login = (props) => {
                         onBlur={validatePasswordHandler}
                     />
                 </div>
+
+
                 <div className={classes.actions}>
                     <Button type="submit" className={classes.btn} disabled={!formIsValid}>
                         Login
