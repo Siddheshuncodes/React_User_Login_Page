@@ -68,7 +68,7 @@ const Login = (props) => {
         // );
 
         setFormIsValid(
-            event.target.value.includes('@') && passwordState.value.length > 6
+            event.target.value.includes('@') && passwordState.value
         );
 
     };
@@ -85,7 +85,7 @@ const Login = (props) => {
 
     const [passwordState, dispatchPassword] = useReducer(passwordReducer, {
         value: '',
-        isValid: false,
+        isValid: null,
     })
 
 
