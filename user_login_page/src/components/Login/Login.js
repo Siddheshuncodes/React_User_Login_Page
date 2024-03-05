@@ -24,13 +24,13 @@ const passwordReducer = (state, action) => {
     if (action.type === "USER_PASSWORD") {
         return {
             value: action.payload,
-            isValid: action.payload,
+            isValid: action.payload.trim().length > 6,
         }
     }
     if (action.type === "PASSWORD_BLUR") {
         return {
             value: state.payload,
-            isValid: state.value
+            isValid: state.value.trim().length > 6
         }
     }
     return { value: '', isValid: false }
